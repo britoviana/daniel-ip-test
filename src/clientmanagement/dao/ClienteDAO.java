@@ -25,22 +25,22 @@ public class ClienteDAO {
 	private static final String UPDATE_CLIENTES_SQL = "UPDATE clientes SET (nome = ?, email = ?, dt_nasc = ?, sexo = ?, estado_civil = ?, ativo = ?) WHERE cpf = ?;";
 
 	protected static Connection getConnection() {
-		Connection connection = null;
+		Connection conn = null;
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+			conn = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return connection;
+		return conn;
 	}
 	// Create or insert cliente
 	public void insertCliente(Cliente cliente) throws SQLException {
-		try(Connection connection = getConnection();
-			PreparedStatement statement = connection.prepareStatement(INSERT_CLIENTES_SQL);) {
+		try(Connection conn = getConnection();
+			PreparedStatement statement = conn.prepareStatement(INSERT_CLIENTES_SQL);) {
 			statement.setString(1, cliente.getCpf());
 			statement.setString(2, cliente.getNome());
 			statement.setString(3, cliente.getEmail());
@@ -56,8 +56,8 @@ public class ClienteDAO {
 	// Update cliente
 	public boolean updateCliente(Cliente cliente) throws SQLException {
 		boolean rowUpdated;
-		try (Connection connection = getConnection();
-			PreparedStatement statement = connection.prepareStatement(UPDATE_CLIENTES_SQL);) {
+		try (Connection conn = getConnection();
+			PreparedStatement statement = conn.prepareStatement(UPDATE_CLIENTES_SQL);) {
 			statement.setString(1, cliente.getNome());
 			statement.setString(2, cliente.getEmail());
 			statement.setString(3, cliente.getDtnasc());
@@ -74,9 +74,9 @@ public class ClienteDAO {
 	public Cliente selectCliente(String cpf) {
 		Cliente cliente = null;
 		//Step 1 Establish connection
-		try (Connection connection = getConnection();
+		try (Connection conn = getConnection();
 			//Step 2 Create a statement using connection object
-			 PreparedStatement statement = connection.prepareStatement(SELECT_CLIENTES_BY_CPF);) {
+			 PreparedStatement statement = conn.prepareStatement(SELECT_CLIENTES_BY_CPF);) {
 			statement.setString(1, cpf);
 			System.out.println(statement);
 			//Step 3 Execute SQL query
@@ -102,9 +102,9 @@ public class ClienteDAO {
 	public List<Cliente> selectAllClientes() {
 		List<Cliente> clientes = new ArrayList<>();
 		//Step 1 Establish connection
-		try (Connection connection = getConnection();
+		try (Connection conn = getConnection();
 				//Step 2 Create a statement using connection object
-				PreparedStatement statement = connection.prepareStatement(SELECT_ALL_CLIENTES);) {
+				PreparedStatement statement = conn.prepareStatement(SELECT_ALL_CLIENTES);) {
 			System.out.println(statement);
 			//Step 3 Execute SQL query
 			ResultSet rs = statement.executeQuery();
@@ -130,9 +130,9 @@ public class ClienteDAO {
 	public List<Cliente> selectClientesByNome(String nome) {
 		List<Cliente> clientes = new ArrayList<>();
 		//Step 1 Establish connection
-		try (Connection connection = getConnection();
+		try (Connection conn = getConnection();
 				//Step 2 Create a statement using connection object
-				PreparedStatement statement = connection.prepareStatement(SELECT_CLIENTES_BY_NOME);) {
+				PreparedStatement statement = conn.prepareStatement(SELECT_CLIENTES_BY_NOME);) {
 			statement.setString(1, "%" + nome + "%");
 			System.out.println(statement);
 			//Step 3 Execute SQL query
@@ -160,8 +160,8 @@ public class ClienteDAO {
 	public static boolean deleteCliente(String cpf) throws SQLException {
 		boolean rowDeleted;
 		
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(DELETE_CLIENTES_SQL);) {
+		try (Connection conn = getConnection();
+				PreparedStatement statement = conn.prepareStatement(DELETE_CLIENTES_SQL);) {
 					statement.setString(1, cpf);
 					rowDeleted = statement.executeUpdate() > 0;				
 					}
