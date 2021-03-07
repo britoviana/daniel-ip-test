@@ -37,7 +37,7 @@ public class ClienteDAO {
 		}
 		return connection;
 	}
-	// Create or insert user
+	// Create or insert cliente
 	public void insertCliente(Cliente cliente) throws SQLException {
 		try(Connection connection = getConnection();
 			PreparedStatement statement = connection.prepareStatement(INSERT_CLIENTES_SQL);) {
@@ -53,7 +53,7 @@ public class ClienteDAO {
 		}
 			
 	}
-	// Update user
+	// Update cliente
 	public boolean updateCliente(Cliente cliente) throws SQLException {
 		boolean rowUpdated;
 		try (Connection connection = getConnection();
@@ -70,7 +70,7 @@ public class ClienteDAO {
 		}
 		return rowUpdated;
 	}
-	// Select user by CPF
+	// Select cliente by CPF
 	public Cliente selectCliente(String cpf) {
 		Cliente cliente = null;
 		//Step 1 Establish connection
