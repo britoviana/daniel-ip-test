@@ -16,8 +16,7 @@ public class ClienteDAO {
 	private static String jdbcUsername = "rodrigo";
 	private static String jdbcPassword = "hqWxD3FN";
 	
-	private static final String INSERT_CLIENTES_SQL = "INSERT INTO clientes" + "(cpf, nome, email, dt_nasc, sexo, estado_civil, ativo) VALUES " 
-													+ " (?, ?, ?, ?, ?, ?);";
+	private static final String INSERT_CLIENTES_SQL = "INSERT INTO clientes (cpf, nome, email, dt_nasc, sexo, estado_civil, ativo) VALUES (?, ?, ?, ?, ?, ?);";
 	private static final String SELECT_CLIENTES_BY_CPF = "SELECT * FROM clientes WHERE cpf = ?;";
 	private static final String SELECT_CLIENTES_BY_NOME = "SELECT * FROM clientes WHERE nome LIKE ?;";
 	private static final String SELECT_ALL_CLIENTES = "SELECT * FROM clientes;";
